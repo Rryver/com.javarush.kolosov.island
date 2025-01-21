@@ -1,19 +1,17 @@
 package ru.javarush.kolosov.island.entities.organisms;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import ru.javarush.kolosov.island.entities.island.Cell;
 
 @Getter
 @Setter
 abstract public class Organism {
-    protected float weight;
-    protected int maxCountOnCell;
-    protected Cell currentCell;
+    public static int maxCountOnCell;
 
-    @NonNull
-    protected OrganismIcon icon;
+    protected float weight;
+    protected Cell currentCell;
+    protected boolean isAlive = true;
 
     public Organism(Cell currentCell) {
         this.currentCell = currentCell;
@@ -22,6 +20,7 @@ abstract public class Organism {
     abstract public void reproduce();
 
     public void die() {
+        isAlive = false;
         getCurrentCell().removeOrganism(this);
     }
 }

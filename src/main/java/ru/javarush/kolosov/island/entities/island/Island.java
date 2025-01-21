@@ -5,15 +5,11 @@ import lombok.Setter;
 import ru.javarush.kolosov.island.entities.organisms.Animal;
 import ru.javarush.kolosov.island.entities.organisms.Organism;
 import ru.javarush.kolosov.island.entities.organisms.Plant;
-import ru.javarush.kolosov.island.entities.organisms.herbivores.Rabbit;
-import ru.javarush.kolosov.island.entities.organisms.predators.Wolf;
-import ru.javarush.kolosov.island.repository.AnimalFactory;
-import ru.javarush.kolosov.island.repository.PlantFactory;
+import ru.javarush.kolosov.island.repository.OrganismFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
@@ -24,21 +20,18 @@ public class Island {
 
     private final Cell[][] cells = new Cell[width][height];
 
-    public Island() {
+    public Island(Set<Class<? extends Organism>> organismsToCreate) {
         for (int y = 0; y < cells.length; y++) {
             for (int x = 0; x < cells[y].length; x++) {
-                Cell cell = new Cell(x, y);
-                PlantFactory.create(cell, 10);
+                Cell cell = new Cell(x, y, this);
                 cells[y][x] = cell;
+
+                for (Class<? extends Organism> organismClazz : organismsToCreate) {
+                    int count = cell.getMaxOrganismCount(organismClazz) / 2 + 1;
+                    OrganismFactory.create(organismClazz, cell, ThreadLocalRandom.current().nextInt(0, count));
+                }
             }
         }
-
-        AnimalFactory.create(Rabbit.class, cells[2][1], 3);
-        AnimalFactory.create(Rabbit.class, cells[2][0], 3);
-        AnimalFactory.create(Rabbit.class, cells[2][1], 3);
-        AnimalFactory.create(Rabbit.class, cells[2][2], 3);
-
-        AnimalFactory.create(Wolf.class, cells[0][1], 2);
     }
 
     public Cell getCell(int x, int y) {

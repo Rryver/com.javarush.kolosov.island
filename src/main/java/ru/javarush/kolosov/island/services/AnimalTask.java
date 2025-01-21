@@ -1,6 +1,5 @@
 package ru.javarush.kolosov.island.services;
 
-import ru.javarush.kolosov.island.Application;
 import ru.javarush.kolosov.island.entities.organisms.Animal;
 
 public class AnimalTask implements Runnable {
@@ -14,6 +13,9 @@ public class AnimalTask implements Runnable {
     @Override
     public void run() {
         animal.startDay();
+        if (!animal.isAlive()) {
+            return;
+        }
 
         animal.move();
         animal.eat();

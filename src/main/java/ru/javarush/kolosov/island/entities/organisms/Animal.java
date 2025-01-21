@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.javarush.kolosov.island.Application;
 import ru.javarush.kolosov.island.entities.island.Cell;
-import ru.javarush.kolosov.island.repository.AnimalFactory;
+import ru.javarush.kolosov.island.repository.OrganismFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,16 +15,29 @@ import java.util.concurrent.ThreadLocalRandom;
 @Getter
 @Setter
 abstract public class Animal extends Organism {
-    //Кого может съесть и шансы поймать
+    /**
+     * Кого может съесть и шансы поймать
+     */
     protected Map<Class<? extends Organism>, Integer> eatChances = new HashMap<>();
 
-    //Скорость перемещения, не более чем, клеток за ход
+    /**
+     * Скорость перемещения, не более чем, клеток за ход
+     */
     protected int speed;
 
-    //Сколько килограммов пищи нужно животному для полного насыщения
+    /**
+     * Сколько пищи нужно животному для полного насыщения, килограммы
+     */
     protected double needEatToBeFull;
+
+    /**
+     * Сегодня съедено, килограммы
+     */
     protected double todayEaten;
 
+    /**
+     * Дней без еды прожито
+     */
     protected int daysWithoutEat;
 
     public Animal(Cell currentCell) {
@@ -40,7 +53,7 @@ abstract public class Animal extends Organism {
         for (int i = 0; i < speed; i++) {
             Cell randomLinkedCell = cellToMoveIn.randomLinkedCell();
             long organismCount = randomLinkedCell.getOrganismCount(this.getClass());
-            if (organismCount < this.getMaxCountOnCell()) {
+            if (organismCount < maxCountOnCell) {
                 cellToMoveIn = randomLinkedCell;
             }
         }
@@ -63,7 +76,7 @@ abstract public class Animal extends Organism {
             List<Organism> organismsToHunt = findOrganismsToHunt();
 
             for (Organism organismToHunt : organismsToHunt) {
-                if (huntedSuccessful(organismToHunt)) {
+                if (huntedSuccessfully(organismToHunt)) {
                     todayEaten += organismToHunt.getWeight();
                     organismToHunt.die();
                 }
@@ -82,7 +95,7 @@ abstract public class Animal extends Organism {
                 .toList();
     }
 
-    private boolean huntedSuccessful(Organism organism) {
+    private boolean huntedSuccessfully(Organism organism) {
         return ThreadLocalRandom.current().nextInt(0, 100) <= eatChances.get(organism.getClass());
     }
 
@@ -92,12 +105,14 @@ abstract public class Animal extends Organism {
             return;
         }
 
-        long sameOrganismsOnCellCount = getCurrentCell().getOrganismCount(this.getClass());
-        if (sameOrganismsOnCellCount < 2 || sameOrganismsOnCellCount >= this.getMaxCountOnCell()) {
-            return;
-        }
+        synchronized (getCurrentCell().getOrganisms()) {
+            long sameOrganismsOnCellCount = getCurrentCell().getOrganismCount(this.getClass());
+            if (sameOrganismsOnCellCount < 2 || sameOrganismsOnCellCount >= maxCountOnCell) {
+                return;
+            }
 
-        AnimalFactory.create(this.getClass(), getCurrentCell());
+            OrganismFactory.create(this.getClass(), getCurrentCell());
+        }
     }
 
     public void startDay() {
@@ -112,6 +127,8 @@ abstract public class Animal extends Organism {
     public void endDay() {
         if (todayEaten == 0) {
             daysWithoutEat++;
+        } else {
+            daysWithoutEat = 0;
         }
     }
 }

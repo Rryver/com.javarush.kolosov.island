@@ -1,4 +1,4 @@
-package ru.javarush.kolosov.island.entities.organisms;
+package ru.javarush.kolosov.island.config;
 
 import lombok.Getter;
 
