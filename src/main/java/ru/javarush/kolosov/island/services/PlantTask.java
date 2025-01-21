@@ -1,6 +1,6 @@
 package ru.javarush.kolosov.island.services;
 
-import ru.javarush.kolosov.island.entities.organisms.Plant;
+import ru.javarush.kolosov.island.entities.organisms.plants.Plant;
 
 public class PlantTask implements Runnable {
     Plant plant;

@@ -5,8 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.javarush.kolosov.island.Application;
 import ru.javarush.kolosov.island.entities.island.Cell;
-import ru.javarush.kolosov.island.repository.OrganismFactory;
+import ru.javarush.kolosov.island.repository.OrganismCreator;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,7 +92,7 @@ abstract public class Animal extends Organism {
     private List<Organism> findOrganismsToHunt() {
         return getCurrentCell().getOrganisms().stream()
                 .filter(e -> this.eatChances.containsKey(e.getClass()))
-                .sorted((o1, o2) -> Float.compare(o1.getWeight(), o2.getWeight()))
+                .sorted(Comparator.comparingDouble(Organism::getWeight))
                 .toList();
     }
 
@@ -111,7 +112,7 @@ abstract public class Animal extends Organism {
                 return;
             }
 
-            OrganismFactory.create(this.getClass(), getCurrentCell());
+            OrganismCreator.create(this.getClass(), getCurrentCell());
         }
     }
 

@@ -1,9 +1,10 @@
-package ru.javarush.kolosov.island.entities.organisms;
+package ru.javarush.kolosov.island.entities.organisms.plants;
 
 import lombok.Getter;
 import lombok.Setter;
 import ru.javarush.kolosov.island.entities.island.Cell;
-import ru.javarush.kolosov.island.repository.OrganismFactory;
+import ru.javarush.kolosov.island.entities.organisms.Organism;
+import ru.javarush.kolosov.island.repository.OrganismCreator;
 
 @Getter
 @Setter
@@ -23,7 +24,7 @@ public class Plant extends Organism {
                 return;
             }
 
-            OrganismFactory.create(this.getClass(), getCurrentCell());
+            OrganismCreator.create(this.getClass(), getCurrentCell());
         }
     }
 }

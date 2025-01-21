@@ -5,7 +5,7 @@ import ru.javarush.kolosov.island.entities.organisms.Organism;
 
 import java.lang.reflect.Constructor;
 
-public class OrganismFactory {
+public class OrganismCreator {
 
     public static <T extends Organism> void create(Class<T> clazz, Cell cell) {
         create(clazz, cell, 1);
@@ -23,5 +23,4 @@ public class OrganismFactory {
             throw new RuntimeException(e);
         }
     }
-
 }

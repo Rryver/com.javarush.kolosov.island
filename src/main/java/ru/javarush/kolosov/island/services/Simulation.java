@@ -6,7 +6,7 @@ import lombok.Setter;
 import ru.javarush.kolosov.island.config.SimulationSettings;
 import ru.javarush.kolosov.island.entities.island.Island;
 import ru.javarush.kolosov.island.entities.organisms.Animal;
-import ru.javarush.kolosov.island.entities.organisms.Plant;
+import ru.javarush.kolosov.island.entities.organisms.plants.Plant;
 import ru.javarush.kolosov.island.services.printInfo.methods.PrintToConsoleOnlyCountOrganismsMethod;
 
 import java.util.ArrayList;

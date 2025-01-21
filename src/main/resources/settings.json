@@ -1,0 +1,30 @@
+{
+  "islandWidth": 3,
+  "islandHeight": 3,
+  "daysWithoutEatToDie": 3,
+  "stopSimulationAfterDays": 0,
+  "organismParams": {
+    "Wolf": {
+      "maxCountOnCell": 30,
+      "weight": 50,
+      "speed": 3,
+      "needEatToBeFull": 8,
+      "eatChances": [
+        {
+          "Rabbit": 60
+        }
+      ]
+    },
+    "Rabbit": {
+      "maxCountOnCell": 30,
+      "weight": 50,
+      "speed": 3,
+      "needEatToBeFull": 8,
+      "eatChances": [
+        {
+          "Rabbit": 60
+        }
+      ]
+    }
+  }
+}

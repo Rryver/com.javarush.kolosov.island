@@ -1,20 +1,17 @@
 package ru.javarush.kolosov.island.entities.organisms.herbivores;
 
-import lombok.Getter;
-import lombok.Setter;
 import ru.javarush.kolosov.island.entities.island.Cell;
 import ru.javarush.kolosov.island.entities.organisms.plants.Plant;
 
-@Getter
-@Setter
-public class Rabbit extends Herbivore {
-    public Rabbit(Cell currentCell) {
+public class Boar extends Herbivore {
+    public Boar(Cell currentCell) {
         super(currentCell);
 
-        weight = 2;
+        weight = 400;
         speed = 2;
-        needEatToBeFull = 0.45;
+        needEatToBeFull = 50;
 
-        this.eatChances.put(Plant.class, 60);
+        this.eatChances.put(Plant.class, 100);
+        this.eatChances.put(Mouse.class, 50);
     }
 }

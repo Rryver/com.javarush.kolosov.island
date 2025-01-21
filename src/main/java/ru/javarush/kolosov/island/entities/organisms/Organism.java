@@ -9,7 +9,7 @@ import ru.javarush.kolosov.island.entities.island.Cell;
 abstract public class Organism {
     public static int maxCountOnCell;
 
-    protected float weight;
+    protected double weight;
     protected Cell currentCell;
     protected boolean isAlive = true;
 

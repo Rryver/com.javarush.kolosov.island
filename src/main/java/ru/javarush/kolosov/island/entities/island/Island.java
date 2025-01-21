@@ -2,10 +2,11 @@ package ru.javarush.kolosov.island.entities.island;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.javarush.kolosov.island.Application;
 import ru.javarush.kolosov.island.entities.organisms.Animal;
 import ru.javarush.kolosov.island.entities.organisms.Organism;
-import ru.javarush.kolosov.island.entities.organisms.Plant;
-import ru.javarush.kolosov.island.repository.OrganismFactory;
+import ru.javarush.kolosov.island.entities.organisms.plants.Plant;
+import ru.javarush.kolosov.island.repository.OrganismCreator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,8 @@ public class Island {
                 cells[y][x] = cell;
 
                 for (Class<? extends Organism> organismClazz : organismsToCreate) {
-                    int count = cell.getMaxOrganismCount(organismClazz) / 2 + 1;
-                    OrganismFactory.create(organismClazz, cell, ThreadLocalRandom.current().nextInt(0, count));
+                    int count = Application.simulation.getSettings().getOrganismMaxCountOnCell(organismClazz) / 2 + 1;
+                    OrganismCreator.create(organismClazz, cell, ThreadLocalRandom.current().nextInt(0, count));
                 }
             }
         }
