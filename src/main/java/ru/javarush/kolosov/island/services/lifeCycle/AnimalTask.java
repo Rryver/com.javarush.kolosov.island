@@ -1,4 +1,4 @@
-package ru.javarush.kolosov.island.services;
+package ru.javarush.kolosov.island.services.lifeCycle;
 
 import ru.javarush.kolosov.island.entities.organisms.Animal;
 

@@ -26,6 +26,9 @@ public class SimulationSettings {
      */
     private int stopSimulationAfterDays = 0;
 
+    private int lifeCycleIntervalMillis = 1000;
+    private int plantsGrowsIntervalMillis = 1000;
+
     @JsonDeserialize(using = organismParamsDeserializer.class)
     private Map<Class<? extends Organism>, OrganismParams> organismParams = new HashMap<>();
 

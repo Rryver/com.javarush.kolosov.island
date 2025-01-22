@@ -1,4 +1,4 @@
-package ru.javarush.kolosov.island.services.printInfo.methods;
+package ru.javarush.kolosov.island.services.printer.methods;
 
 import ru.javarush.kolosov.island.Application;
 import ru.javarush.kolosov.island.entities.island.Cell;
@@ -9,7 +9,7 @@ import ru.javarush.kolosov.island.services.Simulation;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class PrintToConsoleOnlyCountOrganismsMethod implements PrintInfoMethod {
+public class PrintToConsoleOnlyCountOrganisms implements PrintInfoMethod {
     @Override
     public void run() {
         Simulation simulation = Application.simulation;

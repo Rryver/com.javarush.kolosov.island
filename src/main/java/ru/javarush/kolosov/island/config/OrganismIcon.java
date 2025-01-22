@@ -3,6 +3,7 @@ package ru.javarush.kolosov.island.config;
 import lombok.Getter;
 
 @Getter
+@Deprecated
 public enum OrganismIcon {
     WOLF("\uD83D\uDC3A"),
     BOA("\uD83D\uDC0D"),

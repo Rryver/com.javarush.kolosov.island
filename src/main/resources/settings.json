@@ -1,8 +1,10 @@
 {
-  "islandWidth": 10,
-  "islandHeight": 10,
+  "islandWidth": 3,
+  "islandHeight": 3,
   "daysWithoutEatToDie": 3,
   "stopSimulationAfterDays": 0,
+  "lifeCycleIntervalMillis": 1000,
+  "plantsGrowsIntervalMillis": 500,
   "organismParams": {
     "Wolf": {
       "weight": 50,

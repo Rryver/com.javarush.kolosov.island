@@ -5,18 +5,13 @@ import lombok.NonNull;
 import lombok.Setter;
 import ru.javarush.kolosov.island.config.SimulationSettings;
 import ru.javarush.kolosov.island.entities.island.Island;
-import ru.javarush.kolosov.island.entities.organisms.Animal;
-import ru.javarush.kolosov.island.entities.organisms.plants.Plant;
-import ru.javarush.kolosov.island.services.printInfo.methods.PrintToConsoleEveryCellMethod;
-import ru.javarush.kolosov.island.services.printInfo.methods.PrintToConsoleOnlyCountOrganismsMethod;
+import ru.javarush.kolosov.island.services.lifeCycle.AnimalsLifeCycle;
+import ru.javarush.kolosov.island.services.lifeCycle.LifeCycle;
+import ru.javarush.kolosov.island.services.lifeCycle.PlantsLifeCycle;
+import ru.javarush.kolosov.island.services.printer.PrintInfo;
+import ru.javarush.kolosov.island.services.printer.methods.PrintToConsoleEveryCell;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 @Getter
 public class Simulation {
@@ -26,13 +21,11 @@ public class Simulation {
     private Island island;
     private int daysPastUntilStopSimulation;
 
-    //    private PrintInfoService printInfoService;
-    private ScheduledExecutorService printInfoService;
-    private ExecutorService animalExecutorService;
-    private ExecutorService plantExecutorService;
+    private PrintInfo printInfoService;
+    private LifeCycle plantsLifeCycleService;
+    private LifeCycle animalsLifeCycleService;
 
     private boolean inProgress = false;
-    private final int sleepBetweenDaysMillis = 1000;
 
     public Simulation() throws IOException {
         this.settings = SimulationSettings.create();
@@ -43,48 +36,39 @@ public class Simulation {
         inProgress = true;
         daysPastUntilStopSimulation = 0;
         startPrintInfoService();
+        startLifeCycleServices();
 
-        animalExecutorService = Executors.newFixedThreadPool(2);
-        plantExecutorService = Executors.newFixedThreadPool(2);
-
-        while (!isStopConditionReached()) {
+        do {
             try {
-                Thread.sleep(sleepBetweenDaysMillis);
+                Thread.sleep(settings.getLifeCycleIntervalMillis());
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
 
-            List<Plant> allPlants = island.getAllPlants();
-            List<PlantTask> plantTasks = new ArrayList<>();
-            for (Plant plant : allPlants) {
-                plantTasks.add(new PlantTask(plant));
-            }
-            plantTasks.forEach(plantExecutorService::submit);
-//
-            List<? extends Animal> allAnimals = island.getAllAnimals();
-            List<AnimalTask> animalTasks = new ArrayList<>();
-            for (Animal animal : allAnimals) {
-                animalTasks.add(new AnimalTask(animal));
-            }
-            animalTasks.forEach(animalExecutorService::submit);
-
             daysPastUntilStopSimulation++;
-        }
+        } while (!isStopConditionReached());
 
         stop();
     }
 
     public void stop() {
-        printInfoService.shutdown();
-        animalExecutorService.shutdown();
-        plantExecutorService.shutdown();
+        printInfoService.stop();
+        plantsLifeCycleService.stop();
+        animalsLifeCycleService.stop();
         inProgress = false;
     }
 
+    private void startLifeCycleServices() {
+        plantsLifeCycleService = new PlantsLifeCycle(island, settings.getPlantsGrowsIntervalMillis());
+        plantsLifeCycleService.start();
+
+        animalsLifeCycleService = new AnimalsLifeCycle(island, settings.getLifeCycleIntervalMillis());
+        animalsLifeCycleService.start();
+    }
+
     private void startPrintInfoService() {
-        printInfoService = Executors.newSingleThreadScheduledExecutor();
-        printInfoService.scheduleAtFixedRate(new PrintToConsoleEveryCellMethod(), sleepBetweenDaysMillis, sleepBetweenDaysMillis, TimeUnit.MILLISECONDS);
-//        printInfoService.scheduleAtFixedRate(new PrintToConsoleOnlyCountOrganismsMethod(), sleepBetweenDaysMillis, sleepBetweenDaysMillis, TimeUnit.MILLISECONDS);
+        printInfoService = new PrintInfo(new PrintToConsoleEveryCell(), 1000);
+        printInfoService.start();
     }
 
     private void createInland() {
