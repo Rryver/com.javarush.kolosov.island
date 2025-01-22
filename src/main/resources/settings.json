@@ -5,6 +5,7 @@
   "stopSimulationAfterDays": 0,
   "lifeCycleIntervalMillis": 1000,
   "plantsGrowsIntervalMillis": 500,
+  "printInfoMethod": "OnlyCountOrganisms",
   "organismParams": {
     "Wolf": {
       "weight": 50,

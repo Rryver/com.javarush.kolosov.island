@@ -29,6 +29,8 @@ public class SimulationSettings {
     private int lifeCycleIntervalMillis = 1000;
     private int plantsGrowsIntervalMillis = 1000;
 
+    private String printInfoMethod;
+
     @JsonDeserialize(using = OrganismParamsDeserializer.class)
     private Map<Class<? extends Organism>, OrganismParams> organismParams = new HashMap<>();
 

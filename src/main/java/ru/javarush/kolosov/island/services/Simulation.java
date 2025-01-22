@@ -9,6 +9,7 @@ import ru.javarush.kolosov.island.services.lifeCycle.AnimalsLifeCycle;
 import ru.javarush.kolosov.island.services.lifeCycle.LifeCycle;
 import ru.javarush.kolosov.island.services.lifeCycle.PlantsLifeCycle;
 import ru.javarush.kolosov.island.services.printer.PrintInfo;
+import ru.javarush.kolosov.island.services.printer.methods.PrintInfoMethods;
 import ru.javarush.kolosov.island.services.printer.methods.PrintToConsoleEveryCell;
 
 import java.io.IOException;
@@ -48,6 +49,12 @@ public class Simulation {
             daysPastUntilStopSimulation++;
         } while (!isStopConditionReached());
 
+        try {
+            Thread.sleep(settings.getLifeCycleIntervalMillis());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         stop();
     }
 
@@ -67,7 +74,7 @@ public class Simulation {
     }
 
     private void startPrintInfoService() {
-        printInfoService = new PrintInfo(new PrintToConsoleEveryCell(), 1000);
+        printInfoService = new PrintInfo(PrintInfoMethods.getByName(settings.getPrintInfoMethod()), 1000);
         printInfoService.start();
     }
 
