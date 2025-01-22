@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.Setter;
-import ru.javarush.kolosov.island.config.deserializers.organismParamsDeserializer;
+import ru.javarush.kolosov.island.config.deserializers.OrganismParamsDeserializer;
 import ru.javarush.kolosov.island.entities.organisms.Organism;
 
 import java.io.File;
@@ -29,7 +29,7 @@ public class SimulationSettings {
     private int lifeCycleIntervalMillis = 1000;
     private int plantsGrowsIntervalMillis = 1000;
 
-    @JsonDeserialize(using = organismParamsDeserializer.class)
+    @JsonDeserialize(using = OrganismParamsDeserializer.class)
     private Map<Class<? extends Organism>, OrganismParams> organismParams = new HashMap<>();
 
     private SimulationSettings() {}

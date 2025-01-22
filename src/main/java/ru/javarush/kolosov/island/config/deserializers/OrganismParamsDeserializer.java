@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class organismParamsDeserializer extends JsonDeserializer<Map<Class<? extends Organism>, OrganismParams>> {
+public class OrganismParamsDeserializer extends JsonDeserializer<Map<Class<? extends Organism>, OrganismParams>> {
     @Override
     public Map<Class<? extends Organism>, OrganismParams> deserialize(JsonParser parser, DeserializationContext ctxt) throws IOException, JacksonException {
         ObjectCodec codec = parser.getCodec();
