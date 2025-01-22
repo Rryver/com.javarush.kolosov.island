@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.javarush.kolosov.island.entities.island.Cell;
 import ru.javarush.kolosov.island.entities.organisms.Organism;
-import ru.javarush.kolosov.island.entities.organisms.herbivores.Rabbit;
 
 import java.util.Map;
 

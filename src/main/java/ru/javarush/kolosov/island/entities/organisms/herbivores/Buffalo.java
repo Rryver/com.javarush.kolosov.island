@@ -2,7 +2,6 @@ package ru.javarush.kolosov.island.entities.organisms.herbivores;
 
 import ru.javarush.kolosov.island.entities.island.Cell;
 import ru.javarush.kolosov.island.entities.organisms.Organism;
-import ru.javarush.kolosov.island.entities.organisms.plants.Plant;
 
 import java.util.Map;
 

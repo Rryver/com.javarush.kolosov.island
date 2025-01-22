@@ -1,6 +1,5 @@
 package ru.javarush.kolosov.island.entities.organisms;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import ru.javarush.kolosov.island.entities.island.Cell;
