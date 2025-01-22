@@ -1,16 +1,13 @@
 package ru.javarush.kolosov.island.entities.organisms.predators;
 
 import ru.javarush.kolosov.island.entities.island.Cell;
+import ru.javarush.kolosov.island.entities.organisms.Organism;
 import ru.javarush.kolosov.island.entities.organisms.plants.Plant;
 
-public class Boa extends Predator{
-    public Boa(Cell currentCell) {
-        super(currentCell);
+import java.util.Map;
 
-        weight = 15;
-        speed = 1;
-        needEatToBeFull = 3;
-
-        this.eatChances.put(Plant.class, 100);
+public class Boa extends Predator {
+    public Boa(Cell currentCell, double weight, int speed, double needEatToBeFull, Map<Class<? extends Organism>, Integer> eatChances) {
+        super(currentCell, weight, speed, needEatToBeFull, eatChances);
     }
 }

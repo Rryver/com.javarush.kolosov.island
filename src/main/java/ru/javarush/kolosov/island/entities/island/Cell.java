@@ -24,21 +24,6 @@ public class Cell {
         this.island = island;
     }
 
-//    public Map<Class<? extends Organism>, Long> getOrganismsCountInCell() {
-//        Map<Class<? extends Organism>, Long> result = SimulationSettings.availableOrganismClazz.stream().collect(Collectors.toMap(e -> e, e -> 0L));
-//
-//        Map<Class<? extends Organism>, Long> result = new HashMap<>();
-//
-//        for (Class<? extends Organism> availableOrganismClazz : SimulationSettings.availableOrganismClazz) {
-//            result.put(availableOrganismClazz, 0L);
-//        }
-//
-//        Map<Organism, Long> collect = organisms.stream()
-//                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-//
-//        collect.forEach((key, value) -> result.put(key.getClass(), value));
-//    }
-
     public Map<Organism, Integer> getOrganismsCount() {
         Map<Organism, Integer> result = new HashMap<>();
 
@@ -106,6 +91,6 @@ public class Cell {
     }
 
     public Integer getMaxOrganismCount(Class<? extends Organism> clazz) {
-        return Application.simulation.getSettings().getOrganismMaxCountOnCell(clazz);
+        return Application.simulation.getSettings().getOrganismParam(clazz).getMaxCountOnCell();
     }
 }

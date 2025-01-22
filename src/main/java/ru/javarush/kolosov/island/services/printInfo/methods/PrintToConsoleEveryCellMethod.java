@@ -21,7 +21,7 @@ public class PrintToConsoleEveryCellMethod implements PrintInfoMethod {
                 Cell cell = cells[y][x];
                 Map<Organism, Integer> organisms = cell.getOrganismsCount();
                 for (Organism organism : organisms.keySet()) {
-                    System.out.print(simulation.getSettings().getOrganismIcon(organism.getClass()) + ":" + organisms.get(organism));
+                    System.out.print(simulation.getSettings().getOrganismParam(organism.getClass()).getIcon() + ":" + organisms.get(organism));
                 }
 
                 int diffAvailableAndExistsOrganisms = simulation.getSettings().getAvailableOrganismClazz().size() - organisms.size();

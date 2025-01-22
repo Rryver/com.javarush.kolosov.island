@@ -28,7 +28,7 @@ public class PrintToConsoleOnlyCountOrganismsMethod implements PrintInfoMethod {
         }
 
         for (Class<? extends Organism> clazz : organismsTotal.keySet()) {
-            System.out.print(simulation.getSettings().getOrganismIcon(clazz).getValue() + ":" + organismsTotal.get(clazz) + "\t");
+            System.out.print(simulation.getSettings().getOrganismParam(clazz).getIcon() + ":" + organismsTotal.get(clazz) + "\t");
         }
 
         System.out.println("\n");

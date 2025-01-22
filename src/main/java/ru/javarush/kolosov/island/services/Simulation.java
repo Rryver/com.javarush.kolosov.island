@@ -7,8 +7,10 @@ import ru.javarush.kolosov.island.config.SimulationSettings;
 import ru.javarush.kolosov.island.entities.island.Island;
 import ru.javarush.kolosov.island.entities.organisms.Animal;
 import ru.javarush.kolosov.island.entities.organisms.plants.Plant;
+import ru.javarush.kolosov.island.services.printInfo.methods.PrintToConsoleEveryCellMethod;
 import ru.javarush.kolosov.island.services.printInfo.methods.PrintToConsoleOnlyCountOrganismsMethod;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -32,8 +34,8 @@ public class Simulation {
     private boolean inProgress = false;
     private final int sleepBetweenDaysMillis = 1000;
 
-    public Simulation() {
-        this.settings = new SimulationSettings();
+    public Simulation() throws IOException {
+        this.settings = SimulationSettings.create();
     }
 
     public void start() {
@@ -81,12 +83,12 @@ public class Simulation {
 
     private void startPrintInfoService() {
         printInfoService = Executors.newSingleThreadScheduledExecutor();
-//        printInfoService.scheduleAtFixedRate(new PrintToConsoleEveryCellMethod(), sleepBetweenDaysMillis, sleepBetweenDaysMillis, TimeUnit.MILLISECONDS);
-        printInfoService.scheduleAtFixedRate(new PrintToConsoleOnlyCountOrganismsMethod(), sleepBetweenDaysMillis, sleepBetweenDaysMillis, TimeUnit.MILLISECONDS);
+        printInfoService.scheduleAtFixedRate(new PrintToConsoleEveryCellMethod(), sleepBetweenDaysMillis, sleepBetweenDaysMillis, TimeUnit.MILLISECONDS);
+//        printInfoService.scheduleAtFixedRate(new PrintToConsoleOnlyCountOrganismsMethod(), sleepBetweenDaysMillis, sleepBetweenDaysMillis, TimeUnit.MILLISECONDS);
     }
 
     private void createInland() {
-        island = new Island(settings.getAvailableOrganismClazz());
+        island = new Island(settings);
     }
 
     private boolean isStopConditionReached() {

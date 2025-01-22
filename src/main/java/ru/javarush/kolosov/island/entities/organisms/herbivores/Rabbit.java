@@ -3,18 +3,15 @@ package ru.javarush.kolosov.island.entities.organisms.herbivores;
 import lombok.Getter;
 import lombok.Setter;
 import ru.javarush.kolosov.island.entities.island.Cell;
+import ru.javarush.kolosov.island.entities.organisms.Organism;
 import ru.javarush.kolosov.island.entities.organisms.plants.Plant;
+
+import java.util.Map;
 
 @Getter
 @Setter
 public class Rabbit extends Herbivore {
-    public Rabbit(Cell currentCell) {
-        super(currentCell);
-
-        weight = 2;
-        speed = 2;
-        needEatToBeFull = 0.45;
-
-        this.eatChances.put(Plant.class, 60);
+    public Rabbit(Cell currentCell, double weight, int speed, double needEatToBeFull, Map<Class<? extends Organism>, Integer> eatChances) {
+        super(currentCell, weight, speed, needEatToBeFull, eatChances);
     }
 }

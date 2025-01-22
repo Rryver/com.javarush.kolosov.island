@@ -1,17 +1,13 @@
 package ru.javarush.kolosov.island.entities.organisms.herbivores;
 
 import ru.javarush.kolosov.island.entities.island.Cell;
+import ru.javarush.kolosov.island.entities.organisms.Organism;
 import ru.javarush.kolosov.island.entities.organisms.plants.Plant;
 
+import java.util.Map;
+
 public class Boar extends Herbivore {
-    public Boar(Cell currentCell) {
-        super(currentCell);
-
-        weight = 400;
-        speed = 2;
-        needEatToBeFull = 50;
-
-        this.eatChances.put(Plant.class, 100);
-        this.eatChances.put(Mouse.class, 50);
+    public Boar(Cell currentCell, double weight, int speed, double needEatToBeFull, Map<Class<? extends Organism>, Integer> eatChances) {
+        super(currentCell, weight, speed, needEatToBeFull, eatChances);
     }
 }

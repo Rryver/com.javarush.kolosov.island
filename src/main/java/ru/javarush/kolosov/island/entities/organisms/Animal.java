@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.javarush.kolosov.island.Application;
 import ru.javarush.kolosov.island.entities.island.Cell;
-import ru.javarush.kolosov.island.repository.OrganismCreator;
+import ru.javarush.kolosov.island.repository.AnimalCreator;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -41,8 +41,12 @@ abstract public class Animal extends Organism {
      */
     protected int daysWithoutEat;
 
-    public Animal(Cell currentCell) {
-        super(currentCell);
+    public Animal(Cell currentCell, double weight, int speed, double needEatToBeFull, Map<Class<? extends Organism>, Integer> eatChances) {
+        super(currentCell, weight);
+
+        this.speed = speed;
+        this.needEatToBeFull = needEatToBeFull;
+        this.eatChances = eatChances;
     }
 
     public void move() {
@@ -53,8 +57,11 @@ abstract public class Animal extends Organism {
         Cell cellToMoveIn = getCurrentCell();
         for (int i = 0; i < speed; i++) {
             Cell randomLinkedCell = cellToMoveIn.randomLinkedCell();
-            long organismCount = randomLinkedCell.getOrganismCount(this.getClass());
-            if (organismCount < maxCountOnCell) {
+
+            long currentCountOnCell = randomLinkedCell.getOrganismCount(this.getClass());
+            int maxCountOnCell = Application.simulation.getSettings().getOrganismParam(this.getClass()).getMaxCountOnCell();
+
+            if (currentCountOnCell < maxCountOnCell) {
                 cellToMoveIn = randomLinkedCell;
             }
         }
@@ -107,12 +114,14 @@ abstract public class Animal extends Organism {
         }
 
         synchronized (getCurrentCell().getOrganisms()) {
-            long sameOrganismsOnCellCount = getCurrentCell().getOrganismCount(this.getClass());
-            if (sameOrganismsOnCellCount < 2 || sameOrganismsOnCellCount >= maxCountOnCell) {
+            long sameTypeCountOnCell = getCurrentCell().getOrganismCount(this.getClass());
+            int maxCountOnCell = Application.simulation.getSettings().getOrganismParam(this.getClass()).getMaxCountOnCell();
+
+            if (sameTypeCountOnCell < 2 || sameTypeCountOnCell >= maxCountOnCell) {
                 return;
             }
 
-            OrganismCreator.create(this.getClass(), getCurrentCell());
+            AnimalCreator.create(this.getClass(), getCurrentCell());
         }
     }
 

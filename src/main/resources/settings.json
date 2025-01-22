@@ -1,30 +1,194 @@
 {
-  "islandWidth": 3,
-  "islandHeight": 3,
+  "islandWidth": 10,
+  "islandHeight": 10,
   "daysWithoutEatToDie": 3,
   "stopSimulationAfterDays": 0,
   "organismParams": {
     "Wolf": {
-      "maxCountOnCell": 30,
       "weight": 50,
+      "maxCountOnCell": 30,
       "speed": 3,
       "needEatToBeFull": 8,
-      "eatChances": [
-        {
-          "Rabbit": 60
-        }
-      ]
+      "icon": "\uD83D\uDC3A",
+      "eatChances": {
+        "Horse": 10,
+        "Deer": 15,
+        "Rabbit": 60,
+        "Mouse": 80,
+        "Goat": 60,
+        "Sheep": 70,
+        "Boar": 15,
+        "Buffalo": 10,
+        "Duck": 40
+      }
+    },
+    "Boa": {
+      "weight": 15,
+      "maxCountOnCell": 30,
+      "speed": 1,
+      "needEatToBeFull": 3,
+      "icon": "\uD83D\uDC0D",
+      "eatChances": {
+        "Fox": 15,
+        "Rabbit": 20,
+        "Mouse": 40,
+        "Duck": 10
+      }
+    },
+    "Fox": {
+      "weight": 8,
+      "maxCountOnCell": 30,
+      "speed": 2,
+      "needEatToBeFull": 2,
+      "icon": "\uD83E\uDD8A",
+      "eatChances": {
+        "Rabbit": 70,
+        "Mouse": 90,
+        "Duck": 60,
+        "Caterpillar": 40
+      }
+    },
+    "Bear": {
+      "weight": 500,
+      "maxCountOnCell": 5,
+      "speed": 2,
+      "needEatToBeFull": 80,
+      "icon": "\uD83D\uDC3B",
+      "eatChances": {
+        "Boa": 80,
+        "Horse": 40,
+        "Deer": 80,
+        "Rabbit": 80,
+        "Mouse": 90,
+        "Goat": 70,
+        "Sheep": 70,
+        "Boar": 50,
+        "Buffalo": 20,
+        "Duck": 10
+      }
+    },
+    "Eagle": {
+      "weight": 6,
+      "maxCountOnCell": 20,
+      "speed": 3,
+      "needEatToBeFull": 1,
+      "icon": "\uD83E\uDD85",
+      "eatChances": {
+        "Rabbit": 90,
+        "Mouse": 90,
+        "Duck": 80
+      }
+    },
+
+    "Horse": {
+      "weight": 400,
+      "maxCountOnCell": 20,
+      "speed": 4,
+      "needEatToBeFull": 60,
+      "icon": "\uD83D\uDC0E",
+      "eatChances": {
+        "Plant": 100
+      }
+    },
+    "Deer": {
+      "weight": 300,
+      "maxCountOnCell": 20,
+      "speed": 4,
+      "needEatToBeFull": 50,
+      "icon": "\uD83E\uDD8C",
+      "eatChances": {
+        "Plant": 100
+      }
     },
     "Rabbit": {
-      "maxCountOnCell": 30,
-      "weight": 50,
+      "weight": 2,
+      "maxCountOnCell": 150,
+      "speed": 2,
+      "needEatToBeFull": 0.45,
+      "icon": "\uD83D\uDC07",
+      "eatChances": {
+        "Plant": 100
+      }
+    },
+    "Mouse": {
+      "weight": 0.05,
+      "maxCountOnCell": 500,
+      "speed": 1,
+      "needEatToBeFull": 0.01,
+      "icon": "\uD83D\uDC01",
+      "eatChances": {
+        "Caterpillar": 90,
+        "Plant": 100
+      }
+    },
+    "Goat": {
+      "weight": 60,
+      "maxCountOnCell": 140,
       "speed": 3,
-      "needEatToBeFull": 8,
-      "eatChances": [
-        {
-          "Rabbit": 60
-        }
-      ]
+      "needEatToBeFull": 10,
+      "icon": "\uD83D\uDC10",
+      "eatChances": {
+        "Plant": 100
+      }
+    },
+    "Sheep": {
+      "weight": 70,
+      "maxCountOnCell": 140,
+      "speed": 3,
+      "needEatToBeFull": 15,
+      "icon": "\uD83D\uDC11",
+      "eatChances": {
+        "Plant": 100
+      }
+    },
+    "Boar": {
+      "weight": 400,
+      "maxCountOnCell": 50,
+      "speed": 2,
+      "needEatToBeFull": 50,
+      "icon": "\uD83D\uDC17",
+      "eatChances": {
+        "Mouse": 50,
+        "Caterpillar": 90,
+        "Plant": 100
+      }
+    },
+    "Buffalo": {
+      "weight": 700,
+      "maxCountOnCell": 10,
+      "speed": 3,
+      "needEatToBeFull": 100,
+      "icon": "\uD83D\uDC03",
+      "eatChances": {
+        "Plant": 100
+      }
+    },
+    "Duck": {
+      "weight": 1,
+      "maxCountOnCell": 200,
+      "speed": 4,
+      "needEatToBeFull": 0.15,
+      "icon": "\uD83E\uDD86",
+      "eatChances": {
+        "Caterpillar": 90,
+        "Plant": 100
+      }
+    },
+    "Caterpillar": {
+      "weight": 0.01,
+      "maxCountOnCell": 1000,
+      "speed": 0,
+      "needEatToBeFull": 0,
+      "icon": "\uD83D\uDC1B",
+      "eatChances": {
+        "Plant": 100
+      }
+    },
+
+    "Plant": {
+      "weight": 1,
+      "maxCountOnCell": 200,
+      "icon": "\uD83C\uDF31"
     }
   }
 }

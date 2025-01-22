@@ -3,10 +3,12 @@ package ru.javarush.kolosov.island.entities.island;
 import lombok.Getter;
 import lombok.Setter;
 import ru.javarush.kolosov.island.Application;
+import ru.javarush.kolosov.island.config.SimulationSettings;
 import ru.javarush.kolosov.island.entities.organisms.Animal;
 import ru.javarush.kolosov.island.entities.organisms.Organism;
 import ru.javarush.kolosov.island.entities.organisms.plants.Plant;
-import ru.javarush.kolosov.island.repository.OrganismCreator;
+import ru.javarush.kolosov.island.repository.AnimalCreator;
+import ru.javarush.kolosov.island.repository.PlantCreator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,20 +18,29 @@ import java.util.concurrent.ThreadLocalRandom;
 @Getter
 @Setter
 public class Island {
-    private final int width = 3;
-    private final int height = 3;
+    private final int width;
+    private final int height;
 
-    private final Cell[][] cells = new Cell[width][height];
+    private final Cell[][] cells;
 
-    public Island(Set<Class<? extends Organism>> organismsToCreate) {
+    public Island(SimulationSettings settings) {
+        this.width = settings.getIslandWidth();
+        this.height = settings.getIslandHeight();
+        this.cells = new Cell[width][height];
+
         for (int y = 0; y < cells.length; y++) {
             for (int x = 0; x < cells[y].length; x++) {
                 Cell cell = new Cell(x, y, this);
                 cells[y][x] = cell;
 
-                for (Class<? extends Organism> organismClazz : organismsToCreate) {
-                    int count = Application.simulation.getSettings().getOrganismMaxCountOnCell(organismClazz) / 2 + 1;
-                    OrganismCreator.create(organismClazz, cell, ThreadLocalRandom.current().nextInt(0, count));
+                for (Class<? extends Organism> organismClazz : settings.getAvailableOrganismClazz()) {
+                    int count = Application.simulation.getSettings().getOrganismParam(organismClazz).getMaxCountOnCell() / 2 + 1;
+
+                    if (organismClazz == Plant.class) {
+                        PlantCreator.create(cell, count);
+                    } else {
+                        AnimalCreator.create(organismClazz.asSubclass(Animal.class), cell, ThreadLocalRandom.current().nextInt(0, count));
+                    }
                 }
             }
         }
