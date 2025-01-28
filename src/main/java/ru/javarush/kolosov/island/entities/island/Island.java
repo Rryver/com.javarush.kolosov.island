@@ -25,10 +25,10 @@ public class Island {
     public Island(SimulationSettings settings) {
         this.width = settings.getIslandWidth();
         this.height = settings.getIslandHeight();
-        this.cells = new Cell[width][height];
+        this.cells = new Cell[height][width];
 
-        for (int y = 0; y < cells.length; y++) {
-            for (int x = 0; x < cells[y].length; x++) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 Cell cell = new Cell(x, y, this);
                 cells[y][x] = cell;
 

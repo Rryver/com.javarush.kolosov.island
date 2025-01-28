@@ -1,6 +1,6 @@
 {
-  "islandWidth": 3,
-  "islandHeight": 3,
+  "islandWidth": 100,
+  "islandHeight": 20,
   "daysWithoutEatToDie": 3,
   "stopSimulationAfterDays": 0,
   "lifeCycleIntervalMillis": 1000,

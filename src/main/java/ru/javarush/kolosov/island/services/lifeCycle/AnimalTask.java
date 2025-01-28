@@ -13,13 +13,12 @@ public class AnimalTask implements Runnable {
     @Override
     public void run() {
         animal.startDay();
-        if (!animal.isAlive()) {
-            return;
-        }
 
-        animal.move();
-        animal.eat();
-        animal.reproduce();
+        if (animal.isAlive()) {
+            animal.move();
+            animal.eat();
+            animal.reproduce();
+        }
 
         animal.endDay();
     }
